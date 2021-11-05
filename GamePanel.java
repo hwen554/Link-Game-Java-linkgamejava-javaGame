@@ -81,7 +81,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 	}
 
 
-	//判断是否可以水平相连
+	
 	private boolean horizontalLink(int clickX1, int clickY1, int clickX2, int clickY2) {
 
 		if(clickY1>clickY2){//保证y1<y2
