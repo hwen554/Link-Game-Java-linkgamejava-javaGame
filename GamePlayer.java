@@ -19,7 +19,7 @@ public class GamePlayer extends JFrame{
 	JButton button2 = new JButton("Exit");//Exit the game
 	static JTextField textField = new JTextField(10);
 
-	public GameClient(){
+	public GamePlayer(){
 		JLabel label1 = new JLabel("elimination blocks");//eliminated blocks
 		JPanel panel = new JPanel(new BorderLayout());
 		JPanel panel3 = new JPanel(new BorderLayout());
