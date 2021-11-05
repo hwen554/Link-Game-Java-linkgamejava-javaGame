@@ -19,16 +19,16 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener ,MouseListener,KeyListener{
 
-	private Image[] pics;//Í¼Æ¬Êı×é
-	private int z;//ĞĞÁĞÊı
-	private int[][] map;//´æ´¢µØÍ¼ĞÅÏ¢
-	private int leftX = 140,leftY = 80;//row,column±íÊ¾ÈËÎï×ø±ê£»leftX,leftY¼ÇÔØ×óÉÏ½ÇÍ¼Æ¬Î»ÖÃ
-	private boolean isClick = false;//±ê¼ÇÊÇ·ñµÚÒ»´ÎÑ¡ÖĞÍ¼Æ¬
-	private int clickId,clickX,clickY;//¼ÇÂ¼Ê×´ÎÑ¡ÖĞÍ¼Æ¬µÄid,ÒÔ¼°Êı×éÏÂ±ê
-	private int linkMethod;//Á¬½Ó·½Ê½
-	private Node z1,z2;//´æ´¢¹Õ½ÇµãµÄĞÅÏ¢
-	private Map mapUtil;//µØÍ¼¹¤¾ßÀà
-	public static int count = 0;//´æ´¢ÏûÈ¥Í¼°¸µÄ¸öÊı
+	private Image[] pics;//image array
+	private int z;//row and coloumns
+	private int[][] map;//map info
+	private int leftX = 140,leftY = 80;//row,columnï¼›leftX,leftY
+	private boolean isClick = false;
+	private int clickId,clickX,clickY;
+	private int linkMethod;
+	private Node z1,z2;
+	private Map mapUtil;
+	public static int count = 0;//store images been eliminated
 	public boolean t = true;
 	public boolean f = false;
 
@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 		setSize(800, 800);
 		z = 10;
 		mapUtil = new Map(count, z);
-		map = mapUtil.getMap();//»ñÈ¡³õÊ¼Ê±£¬Í¼Æ¬ÖÖÀàÎªcount,ĞĞÁĞÊıÎªnµÄµØÍ¼ĞÅÏ¢
+		map = mapUtil.getMap();//gain map
 		this.setVisible(true);
 		this.addKeyListener(this);
 		this.addMouseListener(this);
@@ -76,10 +76,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 	}
 
 
-	//ÅĞ¶ÏÊÇ·ñ¿ÉÒÔË®Æ½ÏàÁ¬
+	//åˆ¤æ–­æ˜¯å¦å¯ä»¥æ°´å¹³ç›¸è¿
 	private boolean horizontalLink(int clickX1, int clickY1, int clickX2, int clickY2) {
 
-		if(clickY1>clickY2){//±£Ö¤y1<y2
+		if(clickY1>clickY2){//ä¿è¯y1<y2
 			int temp1 = clickX1;
 			int temp2 = clickY1;
 			clickX1 = clickX2;
@@ -88,15 +88,15 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 			clickY2 = temp2;
 		}
 
-		if(clickX1==clickX2){//Èç¹ûÁ½¸öÑ¡ÖĞÍ¼Æ¬µÄËùÔÚĞĞÊıÏàÍ¬£¬ËµÃ÷¿ÉÄÜ¿ÉÒÔË®Æ½ÏàÁª
+		if(clickX1==clickX2){
 
 			for(int i=clickY1+1;i<clickY2;i++){
-				if(map[clickX1][i]!=BLANK_STATE){//Èç¹ûÁ½Í¼Æ¬ÖĞ¼ä»¹ÓĞÆäËûÍ¼Æ¬£¬ËµÃ÷²»ÄÜÖ±½ÓË®Æ½ÏàÁ¬
+				if(map[clickX1][i]!=BLANK_STATE){
 					return f;
 				}
 			}
 
-			//System.out.println("ÎÒÃÇÁ©Ë®Æ½ÏàÁ¬£¬ÎÒµÄÏÂ±êÊÇ£¨"+clickX1+","+clickY1+"),ËüµÄ×ø±êÊÇ("+clickX2+","+clickY2+")");
+			
 			linkMethod = LINKBYHORIZONTAL;
 			return t;
 		}
@@ -106,10 +106,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 	}
 
 
-	//ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ´¹Ö±Á¬½Ó
+	
 	private boolean verticalLink(int clickX1, int clickY1, int clickX2, int clickY2) {
 
-		if(clickX1>clickX2){//±£Ö¤x1<x2
+		if(clickX1>clickX2){
 			int temp1 = clickX1;
 			int temp2 = clickY1;
 			clickX1 = clickX2;
@@ -118,16 +118,16 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 			clickY2 = temp2;
 		}
 
-		if(clickY1==clickY2){//Èç¹ûÁ½¸öÑ¡ÖĞÍ¼Æ¬µÄËùÔÚÁĞÊıÏàÍ¬£¬ËµÃ÷¿ÉÄÜ¿ÉÒÔ´¹Ö±ÏàÁª
+		if(clickY1==clickY2){
 
 			for(int i=clickX1+1;i<clickX2;i++){
-				if(map[i][clickY1]!=BLANK_STATE){//Èç¹ûÁ½Í¼Æ¬ÖĞ¼ä»¹ÓĞÆäËûÍ¼Æ¬£¬ËµÃ÷²»ÄÜÖ±½Ó´¹Ö±ÏàÁ¬
+				if(map[i][clickY1]!=BLANK_STATE){
 					return f;
 				}
 			}
 
 			linkMethod = LINKBYVERTICAL;
-			//System.out.println("ÎÒÃÇÁ©´¹Ö±ÏàÁ¬£¬ÎÒµÄÏÂ±êÊÇ£¨"+clickX1+","+clickY1+"),ËüµÄ×ø±êÊÇ("+clickX2+","+clickY2+")");
+			
 
 			return t;
 		}
@@ -137,10 +137,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 		return f;
 	}
 
-	//ÅĞ¶ÏÊÇ·ñ¿ÉÒÔÍ¨¹ıÒ»¸ö¹ÕµãÏàÁ¬
+	
 	private boolean oneCornerLink(int clickX1, int clickY1, int clickX2, int clickY2) {
 
-		if(clickY1>clickY2){//±£Ö¤(x1,y1)ÊÇ¾ØĞÎµÄ×óÉÏ½Ç»òÕß×óÏÂ½Ç
+		if(clickY1>clickY2){
 			int temp1 = clickX1;
 			int temp2 = clickY1;
 			clickX1 = clickX2;
@@ -149,32 +149,32 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 			clickY2 = temp2;
 		}
 
-		if(clickX1<clickX2){//Èç¹û(x1,y1)Î»ÓÚ¾ØĞÎ×óÉÏ½Ç
+		if(clickX1<clickX2){
 
-			//ÅĞ¶ÏÓÒÉÏ½ÇÊÇ·ñÎª¿Õ²¢ÇÒ¿ÉÒÔÖ±½ÓÓë(x1,y1)ºÍ(x2,y2)ÏàÁ¬½Ó,(clickX1, clickY2)ÊÇÓÒÉÏ½Ç¹ÕµãÏÂ±ê
+			
 			if(map[clickX1][clickY2]==BLANK_STATE&&horizontalLink(clickX1, clickY1, clickX1, clickY2)&&verticalLink(clickX2,clickY2,clickX1,clickY2)){
 				linkMethod = LINKBYONECORNER;
 				z1 = new Node(clickX1,clickY2);
 				return t;
 			}
 
-			//ÅĞ¶Ï×óÏÂ½ÇÊÇ·ñÎª¿Õ²¢ÇÒ¿ÉÒÔÖ±½ÓÓë(x1,y1)ºÍ(x2,y2)ÏàÁ¬½Ó,(clickX2, clickY1)ÊÇ×óÏÂ½Ç¹ÕµãÏÂ±ê
+			
 			if(map[clickX2][clickY1]==BLANK_STATE&&horizontalLink(clickX2, clickY2, clickX2, clickY1)&&verticalLink(clickX1,clickY1,clickX2, clickY1)){
 				linkMethod = LINKBYONECORNER;
 				z1 = new Node(clickX2,clickY1);
 				return t;
 			}
 
-		}else{//Èç¹û(x1,y1)Î»ÓÚ¾ØĞÎ×óÏÂ½Ç
+		}else{
 
-			//ÅĞ¶Ï×óÉÏ½ÇÊÇ·ñÎª¿Õ²¢ÇÒ¿ÉÒÔÖ±½ÓÓë(x1,y1)ºÍ(x2,y2)ÏàÁ¬½Ó,(clickX2, clickY1)ÊÇ×óÉÏ½Ç¹ÕµãÏÂ±ê
+			
 			if(map[clickX2][clickY1]==BLANK_STATE&&horizontalLink(clickX2, clickY2, clickX2, clickY1)&&verticalLink(clickX1,clickY1,clickX2, clickY1)){
 				linkMethod = LINKBYONECORNER;
 				z1 = new Node(clickX2,clickY1);
 				return t;
 			}
 
-			//ÅĞ¶ÏÓÒÏÂ½ÇÊÇ·ñÎª¿Õ²¢ÇÒ¿ÉÒÔÖ±½ÓÓë(x1,y1)ºÍ(x2,y2)ÏàÁ¬½Ó,(clickX1, clickY2)ÊÇÓÒÏÂ½Ç¹ÕµãÏÂ±ê
+			
 			if(map[clickX1][clickY2]==BLANK_STATE&&horizontalLink(clickX1, clickY1, clickX1, clickY2)&&verticalLink(clickX2,clickY2,clickX1, clickY2)){
 				linkMethod = LINKBYONECORNER;
 				z1 = new Node(clickX1,clickY2);
@@ -188,13 +188,13 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 
 
 
-	//ÅĞ¶ÏÊÇ·ñ¿ÉÒÔÍ¨¹ıÁ½¸ö¹ÕµãÏàÁ¬
+	
 	private boolean twoCornerLink(int clickX1, int clickY1, int clickX2, int clickY2) {
 
-		//ÏòÉÏ²éÕÒ
+		
 		for(int i=clickX1-1;i>=-1;i--){
 
-			//Á½¸ö¹ÕµãÔÚÑ¡ÖĞÍ¼°¸µÄÉÏ²à£¬²¢ÇÒÁ½¸ö¹ÕµãÔÚµØÍ¼ÇøÓòÖ®Íâ
+			
 			if(i==-1&&throughVerticalLink(clickX2, clickY2, true)){
 				z1 = new Node(-1,clickY1);
 				z2 = new Node(-1,clickY2);
@@ -218,10 +218,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 
 		}
 
-		//ÏòÏÂ²éÕÒ
+		
 		for(int i=clickX1+1;i<=z;i++){
 
-			//Á½¸ö¹ÕµãÔÚÑ¡ÖĞÍ¼°¸µÄÏÂ²à£¬²¢ÇÒÁ½¸ö¹ÕµãÔÚµØÍ¼ÇøÓòÖ®Íâ
+			
 			if(i==z&&throughVerticalLink(clickX2, clickY2, false)){
 				z1 = new Node(z,clickY1);
 				z2 = new Node(z,clickY2);
@@ -245,10 +245,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 		}
 
 
-		//Ïò×ó²éÕÒ
+		
 		for(int i=clickY1-1;i>=-1;i--){
 
-			//Á½¸ö¹ÕµãÔÚÑ¡ÖĞÍ¼°¸µÄ×ó²à£¬²¢ÇÒÁ½¸ö¹ÕµãÔÚµØÍ¼ÇøÓòÖ®Íâ
+			
 			if(i==-1&&throughHorizontalLink(clickX2, clickY2, true)){
 				linkMethod = LINKBYTWOCORNER;
 				z1 = new Node(clickX1,-1);
@@ -272,10 +272,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 
 		}
 
-		//ÏòÓÒ²éÕÒ
+		
 		for(int i=clickY1+1;i<=z;i++){
 
-			//Á½¸ö¹ÕµãÔÚÑ¡ÖĞÍ¼°¸µÄÓÒ²à£¬²¢ÇÒÁ½¸ö¹ÕµãÔÚµØÍ¼ÇøÓòÖ®Íâ
+			
 			if(i==z&&throughHorizontalLink(clickX2, clickY2, false)){
 				z1 = new Node(clickX1,z);
 				z2 = new Node(clickX2,z);
@@ -303,10 +303,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 	}
 
 
-	//¸ù¾İflag,ÅĞ¶Ï(x1,y1)×óÓÒÁ½²àÖĞµÄÒ»²àÊÇ·ñ»¹ÓĞÆäËûÍ¼Æ¬£¬Èç¹ûÃ»ÓĞ£¬¿ÉÒÔÏàÁ¬
+	//check if there exist images could be connected
 	private boolean throughHorizontalLink(int clickX, int clickY,boolean flag){
 
-		if(flag){//Ïò×ó²éÕÒ
+		if(flag){//search left side
 
 			for(int i=clickY-1;i>=0;i--){
 				if(map[clickX][i]!=BLANK_STATE){
@@ -314,7 +314,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 				}
 			}
 
-		}else{//ÏòÓÒ²éÕÒ
+		}else{//right side
 
 			for(int i=clickY+1;i<z;i++){
 				if(map[clickX][i]!=BLANK_STATE){
@@ -328,10 +328,10 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 	}
 
 
-	//¸ù¾İflag,ÅĞ¶Ï(x1,y1)ÉÏÏÂÁ½²àÖĞµÄÒ»²àÊÇ·ñ»¹ÓĞÆäËûÍ¼Æ¬£¬Èç¹ûÃ»ÓĞ£¬¿ÉÒÔÏàÁ¬
+	
 	private boolean throughVerticalLink(int clickX,int clickY,boolean flag){
 
-		if(flag){//ÏòÉÏ²éÕÒ
+		if(flag){//check upside
 
 			for(int i=clickX-1;i>=0;i--){
 				if(map[i][clickY]!=BLANK_STATE){
@@ -339,7 +339,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 				}
 			}
 
-		}else{//ÏòÏÂ²éÕÒ
+		}else{//check downbelow
 
 			for(int i=clickX+1;i<z;i++){
 				if(map[i][clickY]!=BLANK_STATE){
@@ -353,16 +353,16 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 		return t;
 	}
 
-	//»­Ñ¡ÖĞ¿ò
+	
 	private void drawSelectedBlock(int x, int y, Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;//Éú³ÉGraphics¶ÔÏó
-		BasicStroke s = new BasicStroke(3);//¿í¶ÈÎª1µÄ»­±Ê
+		Graphics2D g2 = (Graphics2D) g;
+		BasicStroke s = new BasicStroke(3);//width of pen
 		g2.setStroke(s);
 		g2.setColor(Color.RED);
 		g.drawRect(x+1, y+1, 48, 48);
 	}
 
-	//»­Ïß£¬´Ë´¦µÄx1,y1,x2,y2¶şÎ¬Êı×éÏÂ±ê
+	
 	@SuppressWarnings("static-access")
 	private void drawLink(int x1, int y1, int x2, int y2) {
 
@@ -371,17 +371,17 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 		Point p2 = new Point(y2*50+leftX+25,x2*50+leftY+25);
 		if(linkMethod == LINKBYHORIZONTAL || linkMethod == LINKBYVERTICAL){
 			g.drawLine(p1.x, p1.y,p2.x, p2.y);
-			//System.out.println("no fold line");//Ã»ÓĞ¹ÕµãµÄÏß
+			//System.out.println("no fold line");
 		}else if(linkMethod ==LINKBYONECORNER){
-			Point point_z1 = new Point(z1.y*50+leftX+25,z1.x*50+leftY+25);//½«¹Õµã×ª»»³ÉÏñËØ×ø±ê
+			Point point_z1 = new Point(z1.y*50+leftX+25,z1.x*50+leftY+25);
 			g.drawLine(p1.x, p1.y,point_z1.x, point_z1.y);
 			g.drawLine(p2.x, p2.y,point_z1.x, point_z1.y);
-			//System.out.println("single fold line");//µ¥¹Õµã»­Ïß
+			//System.out.println("single fold line");
 		}else{
 			Point point_z1 = new Point(z1.y*50+leftX+25,z1.x*50+leftY+25);
 			Point point_z2 = new Point(z2.y*50+leftX+25,z2.x*50+leftY+25);
 
-			if(p1.x!=point_z1.x&&p1.y!=point_z1.y){//±£Ö¤(x1,y1)Óë¹Õµãz1ÔÚÍ¬Ò»ÁĞ»òÕßÍ¬Ò»ĞĞ
+			if(p1.x!=point_z1.x&&p1.y!=point_z1.y){
 				Point temp;
 				temp = point_z1;
 				point_z1 = point_z2;
@@ -392,13 +392,13 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 			g.drawLine(p2.x, p2.y, point_z2.x, point_z2.y);
 			g.drawLine(point_z1.x,point_z1.y, point_z2.x, point_z2.y);
 
-			//System.out.println("double fole line");//Ë«¹Õµã»­Ïß
+			//System.out.println("double fole line");
 		}
 
-		count+=2;//ÏûÈ¥µÄ·½¿éÊıÄ¿+2
+		count+=2;
 		GameClient.textField.setText(count+"");
 		try {
-			Thread.currentThread().sleep(500);//ÑÓÊ±500ms
+			Thread.currentThread().sleep(500);//delay500ms
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -413,7 +413,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 	public void clearSelectBlock(int i,int j,Graphics g){
 		g.clearRect(j*50+leftX, i*50+leftY, 50, 50);
 		g.drawImage(pics[map[i][j]],leftX+j*50,leftY+i*50,50,50,this);
-//		System.out.println("Çå¿ÕÑ¡¶¨"+i+","+j);
+//		System.out.println("clear selection"+i+","+j);
 	}
 
 
@@ -463,7 +463,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 	private void isWin() {
 
 		if(count==z*z){
-			String msg = "Won the game! Play again?";//victory play again£¿
+			String msg = "Won the game! Play again?";//victory play againï¼Ÿ
 			int GameType = JOptionPane.YES_NO_OPTION;
 			String FrameTitle = "Made it!";//won the game
 			int decision = 0;
@@ -518,7 +518,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 
 		if(e.getKeyCode() == KeyEvent.VK_D){//tips
 			if(!find2Block()){
-				JOptionPane.showMessageDialog(this, "Well done!");//Ã»ÓĞ¿ÉÒÔÁ¬Í¨µÄ·½¿éÁË
+				JOptionPane.showMessageDialog(this, "Well done!");//no more connection
 			}
 
 			isWin();//judge game
@@ -548,7 +548,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 					if(i==clickX&&j==clickY)
 					return ;
 
-					if(verticalLink(clickX,clickY,i,j)||horizontalLink(clickX,clickY,i,j)||oneCornerLink(clickX,clickY,i,j)||twoCornerLink(clickX,clickY,i,j)){//Èç¹û¿ÉÒÔÁ¬Í¨£¬»­ÏßÁ¬½Ó£¬È»ºóÏûÈ¥Ñ¡ÖĞÍ¼Æ¬²¢ÖØÖÃµÚÒ»´ÎÑ¡ÖĞ±êÊ¶
+					if(verticalLink(clickX,clickY,i,j)||horizontalLink(clickX,clickY,i,j)||oneCornerLink(clickX,clickY,i,j)||twoCornerLink(clickX,clickY,i,j)){//å¦‚æœå¯ä»¥è¿é€šï¼Œç”»çº¿è¿æ¥ï¼Œç„¶åæ¶ˆå»é€‰ä¸­å›¾ç‰‡å¹¶é‡ç½®ç¬¬ä¸€æ¬¡é€‰ä¸­æ ‡è¯†
 						drawSelectedBlock(j*50+leftX,i*50+leftY,g);
 						drawLink(clickX,clickY,i,j);//connect lines
 						isClick = f;
