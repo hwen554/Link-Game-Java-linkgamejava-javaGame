@@ -1,4 +1,9 @@
-
+/*
+ *  ============================================================================================
+ *  GamePanel.java : Construct jframe.
+ *  
+ *  ============================================================================================
+ */
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -9,7 +14,7 @@ public class Map {
 	private int z;
 
 
-	public Map(int count,int z){//count how many image inside the game,n––n¡–
+	public Map(int count,int z){//count how many image inside the game,n√ê√ên√Å√ê
 		map = MapCreation.getMap(z);//gain array of z rows z coloumns
 		this.count = count;
 		this.z = z;
