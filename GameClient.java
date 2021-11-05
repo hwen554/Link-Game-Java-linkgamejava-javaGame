@@ -10,12 +10,12 @@ import javax.swing.*;
 
 public class GameClient extends JFrame{
 	GamePanel panel2 = new GamePanel(10);
-	JButton button1 = new JButton("Try again"); //重来一局
-	JButton button2 = new JButton("Exit");//退出
+	JButton button1 = new JButton("Try again"); //try again
+	JButton button2 = new JButton("Exit");//Exit the game
 	static JTextField textField = new JTextField(10);
 
 	public GameClient(){
-		JLabel label1 = new JLabel("elimination blocks");//已消去方块数量
+		JLabel label1 = new JLabel("elimination blocks");//eliminated blocks
 		JPanel panel = new JPanel(new BorderLayout());
 		JPanel panel3 = new JPanel(new BorderLayout());
 		textField.setEditable(false);
@@ -32,7 +32,7 @@ public class GameClient extends JFrame{
 		this.getContentPane().add(panel3,BorderLayout.SOUTH);
 		this.setSize(900,800);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("JavaGame");//连连看游戏
+		this.setTitle("JavaGame");//Title
 		this.setVisible(true);
 		button1.setEnabled(true);
 		button2.setEnabled(true);
