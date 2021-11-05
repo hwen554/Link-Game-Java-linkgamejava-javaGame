@@ -1,4 +1,9 @@
-
+/*
+ *  ============================================================================================
+ *  GamePlayer.java : Extends JFrame and contains a panel where mouse move around on the screen.
+ *  
+ *  ============================================================================================
+ */
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -8,7 +13,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-public class GameClient extends JFrame{
+public class GamePlayer extends JFrame{
 	GamePanel panel2 = new GamePanel(10);
 	JButton button1 = new JButton("Try again"); //try again
 	JButton button2 = new JButton("Exit");//Exit the game
