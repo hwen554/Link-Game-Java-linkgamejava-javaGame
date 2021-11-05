@@ -1,4 +1,9 @@
-
+/*
+ *  ============================================================================================
+ *  MapCreation.java : Create a map for gamer to play.
+ *  
+ *  ============================================================================================
+ */
 import java.util.Arrays;
 import java.util.ArrayList;
 public class MapCreation {
