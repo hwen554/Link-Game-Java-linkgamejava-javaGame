@@ -1,6 +1,6 @@
 # Link-Game-Java-/linkgamejava-/javaGame
 Simple java link game using java                     |
-Once compile it successfully it will look like this.\|/
+Once compile it successfully it will look like this.=>\|/
 ![image](https://user-images.githubusercontent.com/78581470/140455372-c3616b87-5424-4e60-a55d-139022731864.png)
 ![image](https://user-images.githubusercontent.com/78581470/140456630-c2d8f86c-b1cd-4996-a774-27413659a171.png)
 
