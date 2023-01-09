@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements ActionListener ,MouseListener,K
 
 	//initialize image array
 	private void getPics() {
-		pics = new Image[10];//you can take any size of array you want for example here are 10
+		pics = new Image[10];// you can take any size of array you want for example here are 10
 		//i<=9
 		for(int i=0;i<10;i++){
 			pics[i] = Toolkit.getDefaultToolkit().getImage("D:/image1/pic"+(i+1)+".png");//D:/image/pic
